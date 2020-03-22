@@ -1,0 +1,35 @@
+$themeColor: #f4ea2a;
+$colorPrimary: #CD919E;
+$colorPrimaryDarken: darken($colorPrimary, 10%);
+$colorMuted: #A3A3A3;
+$colorWeak: #626E7A;
+$colorNormal: #262626;
+$colorDanger: #e33;
+$colorWarn: #f85;
+$colorWhite: #fff;
+$colorBlack: #000;
+$colorRed: #ff4949;
+$colorBrand: #7A5330;
+$colorGrey: #B0B0B0;
+$colorGreyDarken: darken($colorGrey, 5%);
+$colorBlue: #1cbbb4;
+$colorEc: #ECECEC;
+$colorOrange:#F7B824;
+
+// 字体大小
+$text-xxl: 34px;
+$text-xl: 32px;
+$text-nm: 28px;
+$text-lg: 30px;
+$text-sm: 26px;
+$text-xs: 24px;
+$text-xxs: 22px;
+$text-form: 17px;
+
+
+//******边框样式******/
+$color-border: #EDEDED;
+$color-line: #EEEEEE;
+$border: 1px solid $color-border;
+$border-line: 1px solid $color-line;
+$border-dot: 1px dotted #EFF0F2
