@@ -129,12 +129,6 @@ export default {
               ],
             },
             {
-              name: '费率数据',
-              icon: 'smile',
-              path: '/http:/localhost:8000/list',
-              component: './ListTable',
-            },
-            {
               component: './404',
             },
           ],

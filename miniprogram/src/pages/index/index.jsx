@@ -3,21 +3,17 @@ import { View, Image, Text, Picker } from '@tarojs/components'
 import { AtInputNumber, AtButton }  from 'taro-ui'
 import './index.scss'
 import backImag from '../../assets/images/back.jpg'
-import logo from '../../assets/images/logo.jpg'
 
 
 export default class Index extends Component {
   state ={
     brands: ['奔驰', '宝马', '法拉利', '马自达', '丰田'],
-    brandsChecked: '请选择品牌',
     carType: [],
-    carTypeSelected: '请选择车型',
     carSetting: [],
-    carSettingSelected: '请选择配置',
     times: [],
-    timesSelected: '请选择分期数',
     price: 0.00,
-    loan: 0.00
+    loan: 0.00,
+    checkedValue: '请选择',
   }
 
   componentWillMount () { }
@@ -32,7 +28,7 @@ export default class Index extends Component {
 
   onChange = e => {
     this.setState({
-      brandsChecked: this.state.brands[e.detail.value]
+      checkedValue: this.state.brands[e.detail.value]
     })
   }
   handlePriceChange (value) {
@@ -55,6 +51,7 @@ export default class Index extends Component {
     // navigationBarTextStyle: 'white'
   }
 
+
   render () {
     return (
       <View className='index'>
@@ -69,7 +66,7 @@ export default class Index extends Component {
               <View className='field'>
                 <Picker mode='selector' range={this.state.brands} onChange={this.onChange}>
                   <View className='picker'>
-                    {this.state.brandsChecked}
+                    {this.state.checkedValue}
                   </View>
                 </Picker>
               </View>
@@ -79,7 +76,7 @@ export default class Index extends Component {
               <View  className='field'>
                 <Picker mode='selector' range={this.state.carType} onChange={this.onChange}>
                   <View className='picker'>
-                    {this.state.carTypeSelected}
+                    {this.state.checkedValue}
                   </View>
                 </Picker>
               </View>
@@ -89,17 +86,7 @@ export default class Index extends Component {
               <View  className='field'>
                 <Picker mode='selector' range={this.state.carSetting} onChange={this.onChange}>
                   <View className='picker'>
-                    {this.state.carSettingSelected}
-                  </View>
-                </Picker>
-              </View>
-            </View>
-            <View className='page-section'>
-              {/* <Text className='label'>期数：</Text> */}
-              <View  className='field'>
-                <Picker mode='selector' range={this.state.times} onChange={this.onChange}>
-                  <View className='picker'>
-                    {this.state.timesSelected}
+                    {this.state.checkedValue}
                   </View>
                 </Picker>
               </View>
@@ -133,7 +120,43 @@ export default class Index extends Component {
               </View>
             </View>
             <View className='page-section'>
-              <Text className='label'>您的总利息为：</Text>
+              <Text className='label'>首付比例：</Text>
+              <View  className='digit-field'>
+                <AtInputNumber
+                  min={0}
+                  max={999999}
+                  type='digit'
+                  step={1}
+                  width={300}
+                  value={this.state.loan}
+                  onChange={this.handleLoanChange.bind(this)}
+                />（%）
+              </View>
+            </View>
+            <View className='page-section'>
+              {/* <Text className='label'>期数：</Text> */}
+              <View  className='field'>
+                <Picker mode='selector' range={this.state.times} onChange={this.onChange}>
+                  <View className='picker'>
+                    {this.state.checkedValue}
+                  </View>
+                </Picker>
+              </View>
+            </View>
+            <View className='page-section'>
+              <Text className='label'>补贴上限：</Text>
+              <View  className='number-field'>{}</View>
+            </View>
+            <View className='page-section'>
+              <Text className='label'>贴息金额：</Text>
+              <View  className='number-field'>{}</View>
+            </View>
+            <View className='page-section'>
+              <Text className='label'>总利率为：</Text>
+              <View  className='number-field'>{}</View>
+            </View>
+            <View className='page-section'>
+              <Text className='label'>总利息为：</Text>
               <View  className='number-field'>{}</View>
             </View>
             <View className='page-section'>
