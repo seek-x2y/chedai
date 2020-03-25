@@ -14,7 +14,7 @@ class CreatePeriodsTable extends Migration
     public function up()
     {
         Schema::create('periods', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->unsignedTinyInteger('num');
             $table->string('unit')->comment('day, week, month, year 数据库中用英文存储，对外展示用中文');
         });

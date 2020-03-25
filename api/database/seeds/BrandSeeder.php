@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Brand;
 
 class BrandSeeder extends Seeder
 {
@@ -18,6 +19,5 @@ class BrandSeeder extends Seeder
                 'logo' => ''
             ]);
         }
-        
     }
 }

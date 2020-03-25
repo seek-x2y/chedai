@@ -14,13 +14,13 @@ class CreateFeeRatesTable extends Migration
     public function up()
     {
         Schema::create('fee_rates', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->unsignedInteger('config_id');
             $table->unsignedInteger('period_id');
             // $table->string('periods')->comment('期数');
             $table->unsignedInteger('down_payment_rate')->comment('首付比例');
             $table->unsignedInteger('discount_ceiling')->comment('贴息上限');
-            $table->tinyInteger('dicount_type')->comment('贴息类型');
+            $table->tinyInteger('discount_type')->comment('贴息类型');
             $table->unsignedInteger('seller_rate')->comment('商家费率');
             $table->unsignedInteger('customer_rate')->comment('客户费率');
             $table->timestamps();
