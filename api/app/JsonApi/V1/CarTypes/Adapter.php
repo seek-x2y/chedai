@@ -16,7 +16,12 @@ class Adapter extends AbstractAdapter
      * @var array
      */
     protected $attributes = [];
-
+    /**
+     * Resource relationship fields that can be filled.
+     *
+     * @var array
+     */
+    protected $relationships = ['configurations'];
     /**
      * Mapping of JSON API filter names to model scopes.
      *

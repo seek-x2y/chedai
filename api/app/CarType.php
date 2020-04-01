@@ -8,7 +8,7 @@ class CarType extends Model
 {
     public $tiemstamps = false;
 
-    public funtion configurations(){
+    public function configurations(){
         return $this->hasMany('App\Configuration', 'type_id', 'id');
     }
 }

@@ -11,7 +11,7 @@ export default {
   menu: {
     locale: true,
   },
-  title: '车贷后台管理系统',
+  title: '车贷管理系统',
   pwa: false,
   iconfontUrl: '',
 };

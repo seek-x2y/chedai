@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Card, Typography, Alert } from 'antd';
+import { Card, Typography, Alert, Row, Col } from 'antd';
 import styles from './Welcome.less';
 
 const CodePreview = ({ children }) => (
@@ -13,6 +13,27 @@ const CodePreview = ({ children }) => (
 
 export default () => (
   <PageHeaderWrapper>
+    <Row>
+      <Col
+        span={12}
+        style={{
+          minHeight: 400,
+          padding: 16,
+          borderRight: '1px solid #DDD',
+        }}
+      >
+        INSERT_BLOCK_PLACEHOLDER:Col 12
+      </Col>
+      <Col
+        span={12}
+        style={{
+          minHeight: 400,
+          padding: 16,
+        }}
+      >
+        INSERT_BLOCK_PLACEHOLDER:Col 12
+      </Col>
+    </Row>
     <Card>
       <Alert
         message="umi ui 现已发布，点击右下角 umi 图标即可使用"

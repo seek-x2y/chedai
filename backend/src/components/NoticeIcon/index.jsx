@@ -6,9 +6,10 @@ import classNames from 'classnames';
 import NoticeList from './NoticeList';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
+
 const { TabPane } = Tabs;
 
-const NoticeIcon = props => {
+const NoticeIcon = (props) => {
   const getNotificationBox = () => {
     const {
       children,
@@ -26,7 +27,7 @@ const NoticeIcon = props => {
     }
 
     const panes = [];
-    React.Children.forEach(children, child => {
+    React.Children.forEach(children, (child) => {
       if (!child) {
         return;
       }
@@ -42,8 +43,8 @@ const NoticeIcon = props => {
             viewMoreText={viewMoreText}
             data={list}
             onClear={() => onClear && onClear(title, tabKey)}
-            onClick={item => onItemClick && onItemClick(item, child.props)}
-            onViewMore={event => onViewMore && onViewMore(child.props, event)}
+            onClick={(item) => onItemClick && onItemClick(item, child.props)}
+            onViewMore={(event) => onViewMore && onViewMore(child.props, event)}
             showClear={showClear}
             showViewMore={showViewMore}
             title={title}

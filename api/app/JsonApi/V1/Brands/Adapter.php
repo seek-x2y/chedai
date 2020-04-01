@@ -23,7 +23,12 @@ class Adapter extends AbstractAdapter
      * @var array
      */
     protected $filterScopes = [];
-
+    /**
+     * Resource relationship fields that can be filled.
+     *
+     * @var array
+     */
+    protected $relationships = ['cars'];
     /**
      * Adapter constructor.
      *

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { Avatar, List } from 'antd';
 import React from 'react';
 import classNames from 'classnames';
@@ -15,7 +16,7 @@ const NoticeList = ({
   viewMoreText,
   showViewMore = false,
 }) => {
-  if (data.length === 0) {
+  if (!data || data.length === 0) {
     return (
       <div className={styles.notFound}>
         <img
@@ -78,7 +79,7 @@ const NoticeList = ({
         ) : null}
         {showViewMore ? (
           <div
-            onClick={e => {
+            onClick={(e) => {
               if (onViewMore) {
                 onViewMore(e);
               }
