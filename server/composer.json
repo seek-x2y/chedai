@@ -13,7 +13,8 @@
         "cloudcreativity/laravel-json-api": "^1.6",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
-        "laravel/tinker": "^2.0"
+        "laravel/tinker": "^2.0",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "cloudcreativity/json-api-testing": "^1.2|^2.0",

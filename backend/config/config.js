@@ -1,10 +1,10 @@
 // https://umijs.org/config/
-import { defineConfig, utils } from 'umi';
+import { defineConfig /* , utils */ } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import webpackPlugin from './plugin.config';
 
-const { winPath } = utils; // preview.pro.ant.design only do not use in your production ;
+// const { winPath } = utils; // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
 
 const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION, REACT_APP_ENV, GA_KEY } = process.env;
@@ -106,7 +106,6 @@ export default defineConfig({
       component: './404',
     },
   ],
-  // Theme for antd: https://ant.design/docs/react/customize-theme-cn
   theme: {
     // ...darkTheme,
     'primary-color': defaultSettings.primaryColor,
@@ -131,16 +130,16 @@ export default defineConfig({
           return localName;
         }
 
-        const match = context.resourcePath.match(/src(.*)/);
+        // const match = context.resourcePath.match(/src(.*)/);
 
-        if (match && match[1]) {
-          const antdProPath = match[1].replace('.less', '');
-          const arr = winPath(antdProPath)
-            .split('/')
-            .map((a) => a.replace(/([A-Z])/g, '-$1'))
-            .map((a) => a.toLowerCase());
-          return `antd-pro${arr.join('-')}-${localName}`.replace(/--/g, '-');
-        }
+        // if (match && match[1]) {
+        //   const antdProPath = match[1].replace('.less', '');
+        //   const arr = winPath(antdProPath)
+        //     .split('/')
+        //     .map((a) => a.replace(/([A-Z])/g, '-$1'))
+        //     .map((a) => a.toLowerCase());
+        //   return `antd-pro${arr.join('-')}-${localName}`.replace(/--/g, '-');
+        // }
 
         return localName;
       },

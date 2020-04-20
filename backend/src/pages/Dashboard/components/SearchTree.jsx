@@ -120,7 +120,11 @@ class SearchTree extends React.Component {
       });
     return (
       <div>
-        <Search style={{ marginBottom: 8 }} placeholder="Search" onChange={this.onChange} />
+        <Search
+          style={{ marginBottom: 8 }}
+          placeholder="请输入要查询的值"
+          onChange={this.onChange}
+        />
         <Tree
           onExpand={this.onExpand}
           expandedKeys={expandedKeys}
