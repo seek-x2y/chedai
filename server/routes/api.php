@@ -1,7 +1,7 @@
 <?php
 
-//use Illuminate\Http\Request;
 use CloudCreativity\LaravelJsonApi\Facades\JsonApi;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,20 +13,19 @@ use CloudCreativity\LaravelJsonApi\Facades\JsonApi;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
-], function ($router) {
+    'prefix' => 'auth',
+], function () {
     Route::post('login', 'AuthController@login');
-//    Route::post('logout', 'AuthController@logout');
-//    Route::post('refresh', 'AuthController@refresh');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
 //    Route::post('me', 'AuthController@me');
 });
 
 JsonApi::register('v1')->authorizer('default')->routes(function ($api) {
-    //$api->post('/login', 'AuthController@login')->name('login');
     $api->post('/upload', 'UploadController@index')->name('upload');
+    $api->resource('users');
     $api->resource('brands');
     $api->resource('car-types');
     $api->resource('configurations');

@@ -48,17 +48,16 @@ const errorHandler = (error) => {
 /**
  * 配置request请求时的默认参数
  */
-
 const request = extend({
-  prefix: '/api/v1',
+  // prefix: '/api/v1/',
   timeout: 1000,
-  headers: {
-    'Content-Type': 'application/vnd.api+json',
-    Accept: 'application/vnd.api+json',
-  },
-
+  // headers: {
+  //   'Content-Type': 'application/vnd.api+json',
+  //   'Accept': 'application/vnd.api+json',
+  // },
   errorHandler,
   // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
 });
+
 export default request;

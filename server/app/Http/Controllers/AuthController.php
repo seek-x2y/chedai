@@ -31,15 +31,15 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    /**
-     * Get the authenticated User.
-     *
-     * @return JsonResponse
-     */
-    public function me()
-    {
-        return response()->json(auth()->user());
-    }
+//    /**
+//     * Get the authenticated User.
+//     *
+//     * @return JsonResponse
+//     */
+//    public function me()
+//    {
+//        return response()->json(auth()->user());
+//    }
 
     /**
      * Log the user out (Invalidate the token).

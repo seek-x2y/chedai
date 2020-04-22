@@ -11,7 +11,9 @@ const Model = {
   },
   effects: {
     *login({ payload }, { call, put }) {
+      // 验证客户端输入的账密
       const response = yield call(fakeAccountLogin, payload);
+      // 将token存入本地缓存
       yield put({
         type: 'changeLoginStatus',
         payload: response,
@@ -21,7 +23,6 @@ const Model = {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
-
         if (redirect) {
           const redirectUrlParams = new URL(redirect);
 
@@ -56,7 +57,7 @@ const Model = {
   },
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+      setAuthority(payload.meta);
       return { ...state, status: payload.status, type: payload.type };
     },
   },
