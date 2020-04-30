@@ -18,17 +18,14 @@ const Model = {
         type: 'changeLoginStatus',
         payload: response,
       }); // Login successfully
-
-      if (response.status === 'ok') {
+      if (response.response.status === 200) {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
         if (redirect) {
           const redirectUrlParams = new URL(redirect);
-
           if (redirectUrlParams.origin === urlParams.origin) {
             redirect = redirect.substr(urlParams.origin.length);
-
             if (redirect.match(/^\/.*#/)) {
               redirect = redirect.substr(redirect.indexOf('#') + 1);
             }
@@ -57,7 +54,7 @@ const Model = {
   },
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.meta);
+      setAuthority(payload.data.access_token);
       return { ...state, status: payload.status, type: payload.type };
     },
   },

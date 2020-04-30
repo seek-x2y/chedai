@@ -14,6 +14,13 @@ export default {
         '^': '',
       },
     },
+    '/auth/': {
+      target: 'http://chedai.test',
+      changeOrigin: true,
+      pathRewrite: {
+        '^': '',
+      },
+    },
   },
   test: {
     '/api/': {

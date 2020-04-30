@@ -53,6 +53,7 @@ return [
     | `'posts' => App\Post::class`
     */
     'resources' => [
+        'users' => App\User::class,
         'brands' => App\Brand::class,
         'car-types' => App\CarType::class,
         'configurations' => App\Configuration::class,

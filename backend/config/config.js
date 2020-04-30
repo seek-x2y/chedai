@@ -8,6 +8,7 @@ import webpackPlugin from './plugin.config';
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
 
 const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION, REACT_APP_ENV, GA_KEY } = process.env;
+// eslint-disable-next-line no-console
 export default defineConfig({
   hash: true,
   antd: {},

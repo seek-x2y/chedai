@@ -25,7 +25,9 @@ Route::group([
 
 JsonApi::register('v1')->authorizer('default')->routes(function ($api) {
     $api->post('/upload', 'UploadController@index')->name('upload');
-    $api->resource('users');
+    $api->resource('users')->controller()->routes(function($users){
+        $users->get('current', 'current')->name('current');
+    });
     $api->resource('brands');
     $api->resource('car-types');
     $api->resource('configurations');

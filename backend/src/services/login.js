@@ -1,13 +1,5 @@
 import request from '@/utils/request';
 
-request.extendOptions({
-  prefix: '/auth/',
-  headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  },
-});
-
 export async function fakeAccountLogin(params) {
   return request('login', {
     method: 'POST',

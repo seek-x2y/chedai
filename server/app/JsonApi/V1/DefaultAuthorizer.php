@@ -18,12 +18,13 @@ class DefaultAuthorizer extends AbstractAuthorizer
      * @param Request $request
      *      the inbound request.
      * @return void
-     * @throws AuthenticationException|AuthorizationException
      *      if the request is not authorized.
+     * @throws AuthenticationException
+     * @throws AuthorizationException
      */
     public function index($type, $request)
     {
-        // TODO: Implement index() method.
+        $this->can('view', $type);
     }
 
     /**
@@ -34,7 +35,6 @@ class DefaultAuthorizer extends AbstractAuthorizer
      * @param Request $request
      *      the inbound request.
      * @return void
-     * @throws AuthenticationException|AuthorizationException
      *      if the request is not authorized.
      */
     public function create($type, $request)
@@ -50,7 +50,6 @@ class DefaultAuthorizer extends AbstractAuthorizer
      * @param Request $request
      *      the inbound request.
      * @return void
-     * @throws AuthenticationException|AuthorizationException
      *      if the request is not authorized.
      */
     public function read($record, $request)
@@ -66,7 +65,6 @@ class DefaultAuthorizer extends AbstractAuthorizer
      * @param Request $request
      *      the inbound request.
      * @return void
-     * @throws AuthenticationException|AuthorizationException
      *      if the request is not authorized.
      */
     public function update($record, $request)
@@ -82,7 +80,6 @@ class DefaultAuthorizer extends AbstractAuthorizer
      * @param Request $request
      *      the inbound request.
      * @return void
-     * @throws AuthenticationException|AuthorizationException
      *      if the request is not authorized.
      */
     public function delete($record, $request)
@@ -90,4 +87,8 @@ class DefaultAuthorizer extends AbstractAuthorizer
         // TODO: Implement delete() method.
     }
 
+    public function current($type, $request)
+    {
+        $this->can('view', $type);
+    }
 }

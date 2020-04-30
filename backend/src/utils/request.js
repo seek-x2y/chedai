@@ -25,17 +25,27 @@ const codeMessage = {
 /**
  * 异常处理程序
  */
-
 const errorHandler = (error) => {
   const { response } = error;
-
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
-    notification.error({
-      message: `请求错误 ${status}: ${url}`,
-      description: errorText,
-    });
+
+    if (status === 401) {
+      sessionStorage.removeItem('access_token');
+      // router.push('/login');
+    } else if (status === 403) {
+      notification.error({
+        message: `请求错误 ${status}: ${url}`,
+        description: errorText,
+      });
+      // router.push('/exception/403');
+    } else {
+      notification.error({
+        message: `请求错误 ${status}: ${url}`,
+        description: errorText,
+      });
+    }
   } else if (!response) {
     notification.error({
       description: '您的网络发生异常，无法连接服务器',
@@ -49,15 +59,48 @@ const errorHandler = (error) => {
  * 配置request请求时的默认参数
  */
 const request = extend({
-  // prefix: '/api/v1/',
   timeout: 1000,
-  // headers: {
-  //   'Content-Type': 'application/vnd.api+json',
-  //   'Accept': 'application/vnd.api+json',
-  // },
+  getResponse: true,
   errorHandler,
   // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
+});
+
+// 使用中间件对请求做前后处理
+request.use(async (ctx, next) => {
+  const { req } = ctx;
+  const { url, options } = req;
+
+  let headers = {};
+  const token = sessionStorage.getItem('access_token');
+
+  if (url === 'login' || url === 'refresh-token') {
+    ctx.req.url = `/auth/${url}`;
+    headers = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: token || null,
+    };
+  } else if (url === 'upload') {
+    headers = {
+      'Content-Type': 'application/multiple-form-data',
+      Accept: 'application/multiple-form-data',
+    };
+  } else {
+    ctx.req.url = `/api/v1/${url}`;
+    headers = {
+      'Content-Type': 'application/vnd.api+json',
+      Accept: 'application/vnd.api+json',
+      Authorization: `Bearer ${token}`,
+    };
+  }
+
+  ctx.req.options = {
+    ...options,
+    headers,
+  };
+
+  await next();
 });
 
 export default request;

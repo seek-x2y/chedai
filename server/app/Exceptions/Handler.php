@@ -5,7 +5,9 @@ namespace App\Exceptions;
 use CloudCreativity\LaravelJsonApi\Exceptions\HandlesErrors;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
 use Neomerx\JsonApi\Exceptions\JsonApiException;
+use Symfony\Component\HttpFoundation\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -32,10 +34,9 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
-     * @return void
+     * @param Exception $exception
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function report(Exception $exception)
     {
@@ -45,11 +46,11 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param  Request  $request
+     * @param Exception $exception
+     * @return Response
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function render($request, Exception $exception)
     {
