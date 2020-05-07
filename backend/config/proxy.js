@@ -8,14 +8,14 @@
 export default {
   dev: {
     '/api/': {
-      target: 'http://chedai.test',
+      target: 'http://www.chedai.test',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
       },
     },
     '/auth/': {
-      target: 'http://chedai.test',
+      target: 'http://www.chedai.test',
       changeOrigin: true,
       pathRewrite: {
         '^': '',

@@ -79,8 +79,11 @@ request.use(async (ctx, next) => {
     headers = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      Authorization: token || null,
+      // 'Authorization': token || null,
     };
+    if (token) {
+      headers.Authorization = token;
+    }
   } else if (url === 'upload') {
     headers = {
       'Content-Type': 'application/multiple-form-data',

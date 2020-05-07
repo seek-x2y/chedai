@@ -5,10 +5,11 @@ export async function query() {
 }
 
 export async function queryCurrent() {
-  return request('users/current', {
+  return request('me', {
     method: 'GET',
   });
 }
+
 export async function queryNotices() {
   return request('/notices');
 }
