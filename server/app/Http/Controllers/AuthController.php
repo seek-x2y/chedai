@@ -14,7 +14,6 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login']]);
-        dump(111);
     }
 
     /**
@@ -34,11 +33,11 @@ class AuthController extends Controller
     /**
      * Get the authenticated User.
      *
-     * @return JsonResponse
+     *
      */
     public function me()
     {
-        dump('is here');
+//        return json_api()->response(auth()->user());
         return response()->json(auth()->user());
     }
 

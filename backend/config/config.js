@@ -60,37 +60,9 @@ export default defineConfig({
               redirect: '/welcome',
             },
             {
+              name: '控制台',
+              icon: 'smile',
               path: '/welcome',
-              name: 'welcome',
-              icon: 'smile',
-              component: './Welcome',
-            },
-            {
-              path: '/admin',
-              name: 'admin',
-              icon: 'crown',
-              component: './Admin',
-              authority: ['admin'],
-              routes: [
-                {
-                  path: '/admin/sub-page',
-                  name: 'sub-page',
-                  icon: 'smile',
-                  component: './Welcome',
-                  authority: ['admin'],
-                },
-              ],
-            },
-            {
-              name: 'list.table-list',
-              icon: 'table',
-              path: '/list',
-              component: './ListTableList',
-            },
-            {
-              name: 'dashboard',
-              icon: 'smile',
-              path: '/dashboard',
               component: './Dashboard',
             },
             {
