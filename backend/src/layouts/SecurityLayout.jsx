@@ -29,7 +29,7 @@ class SecurityLayout extends React.Component {
       redirect: window.location.href,
     });
 
-    if ((!token && loading) || !isReady) {
+    if ((token === undefined && loading) || !isReady) {
       return <PageLoading />;
     }
 

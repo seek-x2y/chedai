@@ -184,6 +184,7 @@ return [
     */
     'decoding' => [
         'application/vnd.api+json',
+        'application/multiple-form-date' => \App\JsonApi\V1\FileDecoder::class
     ],
 
     /*

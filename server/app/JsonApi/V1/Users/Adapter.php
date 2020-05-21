@@ -43,5 +43,4 @@ class Adapter extends AbstractAdapter
     {
         $this->filterWithScopes($query, $filters);
     }
-
 }

@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'umi';
 import Avatar from './AvatarDropdown';
 import HeaderSearch from '../HeaderSearch';
-// import SelectLang from '../SelectLang';
+import SelectLang from '../SelectLang';
 import styles from './index.less';
 
 const ENVTagColor = {
@@ -65,7 +65,7 @@ const GlobalHeaderRight = (props) => {
           <Tag color={ENVTagColor[REACT_APP_ENV]}>{REACT_APP_ENV}</Tag>
         </span>
       )}
-      {/* <SelectLang className={styles.action} /> */}
+      <SelectLang className={styles.action} />
     </div>
   );
 };

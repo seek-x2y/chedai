@@ -60,7 +60,7 @@ export default defineConfig({
               redirect: '/welcome',
             },
             {
-              name: '控制台',
+              name: 'dashboard',
               icon: 'smile',
               path: '/welcome',
               component: './Dashboard',

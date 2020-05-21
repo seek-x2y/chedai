@@ -29,7 +29,11 @@ class Schema extends SchemaProvider
      */
     public function getAttributes($resource)
     {
+//        dump($resource);
         return [
+            'name' => $resource->name,
+            'email' => $resource->email,
+            'avatar' => $resource->avatar,
             'created-at' => $resource->created_at->toAtomString(),
             'updated-at' => $resource->updated_at->toAtomString(),
         ];

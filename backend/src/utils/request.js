@@ -33,13 +33,11 @@ const errorHandler = (error) => {
 
     if (status === 401) {
       sessionStorage.removeItem('access_token');
-      // router.push('/login');
     } else if (status === 403) {
       notification.error({
         message: `请求错误 ${status}: ${url}`,
         description: errorText,
       });
-      // router.push('/exception/403');
     } else {
       notification.error({
         message: `请求错误 ${status}: ${url}`,
@@ -73,7 +71,6 @@ request.use(async (ctx, next) => {
 
   let headers = {};
   const token = sessionStorage.getItem('access_token');
-
   if (url === 'login' || url === 'refresh-token') {
     ctx.req.url = `/auth/${url}`;
     headers = {
@@ -84,18 +81,20 @@ request.use(async (ctx, next) => {
     if (token) {
       headers.Authorization = token;
     }
-  } else if (url === 'upload') {
-    headers = {
-      'Content-Type': 'application/multiple-form-data',
-      Accept: 'application/multiple-form-data',
-    };
   } else {
     ctx.req.url = `/api/v1/${url}`;
-    headers = {
-      'Content-Type': 'application/vnd.api+json',
-      Accept: 'application/vnd.api+json',
-      Authorization: `Bearer ${token}`,
-    };
+    if (url === 'upload') {
+      headers = {
+        'Content-Type': 'application/multiple-form-data',
+        // Accept: 'application/multiple-form-data',
+      };
+    } else {
+      headers = {
+        'Content-Type': 'application/vnd.api+json',
+        Accept: 'application/vnd.api+json',
+      };
+    }
+    headers.Authorization = `Bearer ${token}`;
   }
 
   ctx.req.options = {

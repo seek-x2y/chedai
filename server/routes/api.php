@@ -20,15 +20,14 @@ Route::group([
     Route::post('login', 'AuthController@login')->name('login');
     Route::post('logout', 'AuthController@logout')->name('logout');
     Route::post('refresh', 'AuthController@refresh')->name('refresh');
-//    Route::post('me', 'AuthController@me');
 });
 
 JsonApi::register('v1')->middleware('auth:api')->routes(function ($api) {
     $api->post('upload', 'UploadController@index')->name('upload');
     $api->get('me', 'AuthController@me')->name('currentUser');
 
-    $api->resource('brands');
-    $api->resource('car-types');
-    $api->resource('configurations');
-    $api->resource('fee-rates');
+    // $api->resource('brands');
+    // $api->resource('car-types');
+    // $api->resource('configurations');
+    // $api->resource('fee-rates');
 });

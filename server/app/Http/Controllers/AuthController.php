@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
@@ -37,8 +38,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-//        return json_api()->response(auth()->user());
-        return response()->json(auth()->user());
+        return json_api()->response()->content(auth()->user());
     }
 
     /**

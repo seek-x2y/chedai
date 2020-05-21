@@ -2,7 +2,7 @@ import { reloadAuthorized } from './Authorized'; // use localStorage to store th
 
 export function getAuthority(str) {
   const authorityString =
-    typeof str === 'undefined' && localStorage ? localStorage.getItem('antd-pro-authority') : str; // authorityString could be admin, "admin", ["admin"]
+    typeof str === 'undefined' && sessionStorage ? sessionStorage.getItem('access_token') : str; // authorityString could be admin, "admin", ["admin"]
 
   let authority;
 
@@ -25,6 +25,7 @@ export function getAuthority(str) {
 
   return authority;
 }
+
 export function setAuthority(authority) {
   // const proAuthority = typeof authority === 'string' ? [authority] : authority;
   sessionStorage.setItem('access_token', authority);
