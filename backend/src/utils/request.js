@@ -83,17 +83,12 @@ request.use(async (ctx, next) => {
     }
   } else {
     ctx.req.url = `/api/v1/${url}`;
-    if (url === 'upload') {
-      headers = {
-        'Content-Type': 'application/multiple-form-data',
-        // Accept: 'application/multiple-form-data',
-      };
+    if (url === 'files') {
+      headers = { 'Content-Type': 'multipart/form-data' };
     } else {
-      headers = {
-        'Content-Type': 'application/vnd.api+json',
-        Accept: 'application/vnd.api+json',
-      };
+      headers = { 'Content-Type': 'application/vnd.api+json' };
     }
+    headers.Accept = 'application/vnd.api+json';
     headers.Authorization = `Bearer ${token}`;
   }
 

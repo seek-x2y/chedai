@@ -22,10 +22,12 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh')->name('refresh');
 });
 
+
 JsonApi::register('v1')->middleware('auth:api')->routes(function ($api) {
-    $api->post('upload', 'UploadController@index')->name('upload');
+    // $api->post('upload', 'UploadController@index')->name('upload');
     $api->get('me', 'AuthController@me')->name('currentUser');
 
+    $api->resource('files')->controller();  
     // $api->resource('brands');
     // $api->resource('car-types');
     // $api->resource('configurations');
