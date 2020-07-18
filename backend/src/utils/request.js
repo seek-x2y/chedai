@@ -27,75 +27,72 @@ const codeMessage = {
  */
 const errorHandler = (error) => {
   const { response } = error;
-  if (response && response.status) {
-    const errorText = codeMessage[response.status] || response.statusText;
-    const { status, url } = response;
-
-    if (status === 401) {
-      sessionStorage.removeItem('access_token');
-    } else if (status === 403) {
-      notification.error({
-        message: `请求错误 ${status}: ${url}`,
-        description: errorText,
-      });
-    } else {
-      notification.error({
-        message: `请求错误 ${status}: ${url}`,
-        description: errorText,
-      });
-    }
-  } else if (!response) {
-    notification.error({
-      description: '您的网络发生异常，无法连接服务器',
-      message: '网络异常',
-    });
+  const { status, statusText, url } = response;
+  if (response && status >= 200 && status < 300) {
+    return response;
   }
 
-  return response;
+  if (status === 401) {
+    notification.error({
+      message: `未登录或登录已过期，请重新登录`,
+    });
+    sessionStorage.removeItem('access_token');
+    window.location.href = '/user/login';
+
+    return false;
+  }
+
+  const errorText = codeMessage[status] || statusText;
+  notification.error({
+    message: `请求错误 ${status}: ${url}`,
+    description: errorText,
+  });
+
+  const myError = new Error(errorText);
+  myError.name = response.status;
+  myError.response = response;
+  throw error;
 };
 /**
  * 配置request请求时的默认参数
  */
 const request = extend({
-  timeout: 1000,
+  timeout: 5000,
   getResponse: true,
   errorHandler,
-  // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
+  mode: 'cors',
 });
 
 // 使用中间件对请求做前后处理
 request.use(async (ctx, next) => {
-  const { req } = ctx;
-  const { url, options } = req;
-
-  let headers = {};
-  const token = sessionStorage.getItem('access_token');
-  if (url === 'login' || url === 'refresh-token') {
-    ctx.req.url = `/auth/${url}`;
-    headers = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      // 'Authorization': token || null,
-    };
-    if (token) {
-      headers.Authorization = token;
-    }
-  } else {
-    ctx.req.url = `/api/v1/${url}`;
-    if (url === 'files') {
-      headers = { 'Content-Type': 'multipart/form-data' };
-    } else {
-      headers = { 'Content-Type': 'application/vnd.api+json' };
-    }
-    headers.Accept = 'application/vnd.api+json';
-    headers.Authorization = `Bearer ${token}`;
-  }
-
-  ctx.req.options = {
-    ...options,
-    headers,
+  const { url, options } = ctx.req;
+  const defaultOptions = {
+    credentials: 'include',
+    headers: {
+      Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
+      // 'Content-Type': 'application/vnd.api+json',
+      Accept: 'application/vnd.api+json',
+    },
   };
+  const newOptions = { ...options, ...defaultOptions };
+  if (newOptions.method === 'post' || newOptions.method === 'put') {
+    if (url === 'login') {
+      ctx.req.url = `/auth/${url}`;
+      newOptions.headers = {
+        'Content-Type': 'application/json;charset=UTF-8',
+        Accept: 'application/json;charset=UTF-8',
+      };
+    } else {
+      ctx.req.url = `/api/v1/${url}`;
+      // newOptions.body undefined ，所以才用data, 此处FormData采用系统自动设置的content-type
+      if (!(newOptions.data instanceof FormData)) {
+        newOptions.headers.set('Content-Type', 'application/vnd.api+json');
+      }
+    }
+  }
+  ctx.req.options = newOptions;
+  console.log('request', ctx.req);
 
   await next();
 });
