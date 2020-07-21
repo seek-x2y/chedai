@@ -28,6 +28,7 @@ const codeMessage = {
 const errorHandler = (error) => {
   const { response } = error;
   const { status, statusText, url } = response;
+
   if (response && status >= 200 && status < 300) {
     return response;
   }
@@ -57,7 +58,6 @@ const errorHandler = (error) => {
  * 配置request请求时的默认参数
  */
 const request = extend({
-  timeout: 5000,
   getResponse: true,
   errorHandler,
   credentials: 'include', // 默认请求是否带上cookie
@@ -92,8 +92,6 @@ request.use(async (ctx, next) => {
     }
   }
   ctx.req.options = newOptions;
-  console.log('request', ctx.req);
-
   await next();
 });
 

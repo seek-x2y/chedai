@@ -1,5 +1,5 @@
 import React from 'react';
-import { Upload, Button, Row, Col, Divider } from 'antd';
+import { Upload, Button, Row, Col, Divider, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { uploadFile } from '@/services/file';
 
@@ -19,13 +19,16 @@ class UploadFile extends React.Component {
     this.setState({
       uploading: true,
     });
-
+    message.loading('文件上传中....');
     uploadFile(formData)
-      .then((r) => {
-        console.log('fetch ok', r);
+      .then(() => {
+        this.setState({
+          uploading: false,
+        });
+        message.success('文件上传成功！');
       })
-      .catch((r) => {
-        console.log('fetch reject', r);
+      .catch(() => {
+        message.error('文件上传失败！');
       });
   };
 

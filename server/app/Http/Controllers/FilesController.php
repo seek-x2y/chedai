@@ -16,14 +16,11 @@ class FilesController extends JsonApiController
     {
         // 现在只有all能接收到数据，其他方式不可，为什么？
         $req = $request->all();
-        dump('req',$req);
-        $file = $request->input('files');
-        dd('file', $file);
+        $file = $req['files'][0] ?? '';
         // 是否上传成功
         if (!($file->isValid())) {
             return $this->reply()->error(['id' => 4000, 'title' => '文件上传失败！'], 400);
         }
-
         // 是否符合文件类型
         $fileExtension = $file->getClientOriginalExtension();
         if (!in_array($fileExtension, ['xlsx', 'xls'])) {
@@ -42,13 +39,14 @@ class FilesController extends JsonApiController
 
         try {
             $fileName = now()->toDateString() . '/' . md5(time() . mt_rand(0, 9999)) . '.' . $fileExtension;
-            if (Storage::disk('public')->put($fileName, file_get_contents($tmpFile))) {
-                $url = Storage::url($fileName);
-                Excel::import(new CarsImport(), $url);
-                return $this->reply()->meta(['file' => $url]);
+            $dir = Storage::disk('public');
+            if ($dir->put($fileName, file_get_contents($tmpFile))) {
+                Excel:: import(new CarsImport(), storage_path('app/public/') . $fileName);
+                return $this->reply()->meta(['file' => $dir->url($fileName)]);
             }
         } catch (\Exception $exception) {
             Log::error('文件上传出现异常：' . $exception->getMessage());
+            $this->reply()->error(['id' => '5000', 'title' => '文件上传失败！'], 500);
         } finally {
             $this->reply()->error(['id' => '5000', 'title' => '系统错误！'], 500);
         }
